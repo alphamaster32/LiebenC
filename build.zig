@@ -24,7 +24,7 @@ pub fn build(b: *std.Build) void {
     const crt0 = b.addObject(.{
         .name = "crt0",
         .root_module = b.createModule(.{
-            .root_source_file = b.path("src/runtime/crt0.zig"),
+            .root_source_file = b.path("src/crt0.zig"),
             .target = target,
             .optimize = optimize,
         }),

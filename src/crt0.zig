@@ -1,6 +1,12 @@
 const builtin = @import("builtin");
 const native_arch = builtin.cpu.arch;
 
+// Same thing imported in the root.zig.
+pub const syscall = switch (native_arch) {
+    .x86_64 => @import("arch/x86_64/syscall.zig"),
+    else => @compileError("unsupported architecture"),
+};
+
 extern fn main(argc: usize, argv: [*][*:0]u8) callconv(.c) usize;
 
 export fn _start() callconv(.naked) noreturn {
@@ -32,14 +38,12 @@ fn callMain(stack: [*]usize) callconv(.c) noreturn {
     const argc = stack[0];
     const argv: [*][*:0]u8 = @ptrCast(stack + 1);
 
-    _ = main(argc, argv);
+    // Get
 
-    // Call the exit syscall.
-    asm volatile (
-        \\ movq %%rax, %%rdi
-        \\ movq $60, %%rax
-        \\ syscall
-    );
+    const ret = main(argc, argv);
+
+    // For some insane reason the exit code is 1 in x86 and 60 in x86_64.
+    _ = syscall.syscall1(60, ret);
 
     unreachable;
 }
