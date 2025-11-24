@@ -6,7 +6,7 @@ pub const auxv_t = switch (native_arch) {
         a_type: u64,
         a_un: extern union {
             a_val: u64,
-            a_ptr: *opaque {},
+            a_ptr: *anyopaque,
             a_func: *const fn () callconv(.c) void,
         },
     },
