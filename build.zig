@@ -54,6 +54,7 @@ pub fn build(b: *std.Build) void {
 
     const headers = [_][]const u8{
         "include/stdint.h",
+        "include/stdarg.h",
         "include/stddef.h",
         "include/stdio.h",
     };
