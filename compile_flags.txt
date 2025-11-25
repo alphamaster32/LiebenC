@@ -1,0 +1,7 @@
+-nostdinc
+-fno-builtin
+-I./zig-out/include
+-fno-exceptions
+-ffreestanding
+-std=c23
+--target=x86_64-linux-none

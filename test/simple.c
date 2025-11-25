@@ -1,3 +1,7 @@
+#include <stddef.h>
+#include <stdint.h>
+
 int main(int argc, char** argv) {
-    return argc;
+    intmax_t asd = 0;
+    unreachable();
 }
